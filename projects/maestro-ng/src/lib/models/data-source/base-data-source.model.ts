@@ -1,47 +1,47 @@
 import { ConsultaPaginadaResultado } from '../consulta/consulta-paginada-resultado.model';
-import { ProgressService } from './../../services/progress-service.service';
-import { MessageService } from './../../services/message-service.service';
+import { ProgressoService } from '../../services/progresso-service.service';
+import { MensagemService } from '../../services/mensagem-service.service';
 import { LazyLoadEvent } from 'primeng/api';
 
 export class BaseDataSource<E> {
 
   public entidades: E[];
-  public lastLoadEvent: LazyLoadEvent;
+  public ultimoCarregamentoEvento: LazyLoadEvent;
   public total: number;
 
   constructor(
-    protected messageService: MessageService,
-    protected progressService: ProgressService,
-    public rows = 10,
-    protected onLazyLoadAction: (event: LazyLoadEvent) => Promise<ConsultaPaginadaResultado<E>>) {
+    protected mensagemService: MensagemService,
+    protected progressoService: ProgressoService,
+    public registros = 10,
+    protected carrregador: (event: LazyLoadEvent) => Promise<ConsultaPaginadaResultado<E>>) {
   }
 
-  public load(): void {
-    this.onLazyLoad({ first: 0, rows: this.rows });
+  public pesquisar(): void {
+    this.carregar({ first: 0, rows: this.registros });
   }
 
-  public refresh(): void {
-    this.onLazyLoad(this.lastLoadEvent);
+  public atualizar(): void {
+    this.carregar(this.ultimoCarregamentoEvento);
   }
 
-  public onEnterSearch(event: any): void {
-    if (event.keyCode === 13) {
-      this.load();
+  public onEnterPesquisar(evento: any): void {
+    if (evento.keyCode === 13) {
+      this.pesquisar();
     }
   }
 
-  public onLazyLoad(event: LazyLoadEvent): void {
-    this.progressService.showModeless();
-    this.onLazyLoadAction(event)
+  public carregar(evento: LazyLoadEvent): void {
+    this.progressoService.modeless();
+    this.carrregador(evento)
       .then(result => {
         this.entidades = result.entidades;
-        this.lastLoadEvent = event;
+        this.ultimoCarregamentoEvento = evento;
         this.total = result.total;
-        this.progressService.hide();
+        this.progressoService.fechar();
       })
       .catch(result => {
-        this.messageService.addError('Erro ao carregar os dados no servidor', result.error);
-        this.progressService.hide();
+        this.mensagemService.addErro('Erro ao carregar os dados no servidor', result.error);
+        this.progressoService.fechar();
       });
   }
 }

@@ -1,0 +1,20 @@
+<m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
+
+<div *ngIf="isOperadorSingular()" class="p-col-12">
+  <p-calendar [(ngModel)]="restricao.valor" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" dateFormat="dd/mm/yy" *ngIf="isDataHora()" dataType="string"></p-calendar>
+  <p-calendar [(ngModel)]="restricao.valor" showIcon="true" showButtonBar="true" dateFormat="dd/mm/yy" *ngIf="isSomenteData()"></p-calendar>
+  <p-calendar [(ngModel)]="restricao.valor" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" [timeOnly]="true" *ngIf="isSomenteHora()"></p-calendar>
+</div>
+
+<div *ngIf="isOperadorBetween()" class="p-grid">
+  <div class="p-col-12">
+    <p-calendar [(ngModel)]="restricao.valorInicial" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" dateFormat="dd/mm/yy" *ngIf="isDataHora()"></p-calendar>
+    <p-calendar [(ngModel)]="restricao.valorInicial" showIcon="true" showButtonBar="true" dateFormat="dd/mm/yy" *ngIf="isSomenteData()"></p-calendar>
+    <p-calendar [(ngModel)]="restricao.valorInicial" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" [timeOnly]="true" *ngIf="isSomenteHora()"></p-calendar>
+  </div>
+  <div class="p-col-12">
+    <p-calendar [(ngModel)]="restricao.valorFinal" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" dateFormat="dd/mm/yy" *ngIf="isDataHora()"></p-calendar>
+    <p-calendar [(ngModel)]="restricao.valorFinal" showIcon="true" showButtonBar="true" dateFormat="dd/mm/yy" *ngIf="isSomenteData()"></p-calendar>
+    <p-calendar [(ngModel)]="restricao.valorFinal" showIcon="true" showButtonBar="true" [showTime]="true" [showSeconds]="mostrarSegundos" [timeOnly]="true" *ngIf="isSomenteHora()"></p-calendar>
+  </div>
+</div>

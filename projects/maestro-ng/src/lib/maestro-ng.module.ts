@@ -1,10 +1,12 @@
+import { RestricaoTemporalComponent } from './components/restricao/restricao-temporal/restricao-temporal.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { ConfirmationService as CsPrimeng, MessageService as MsPrimeng } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
@@ -21,9 +23,9 @@ import { RestricaoEntidadeComponent } from './components/restricao/restricao-ent
 import { RestricaoLabelComponent } from './components/restricao/restricao-label/restricao-label.component';
 import { RestricaoNumberComponent } from './components/restricao/restricao-number/restricao-number.component';
 import { RestricaoStringComponent } from './components/restricao/restricao-string/restricao-string.component';
-import { ConfirmationService } from './services/confirmation-service.service';
-import { MessageService } from './services/message-service.service';
-import { ProgressService } from './services/progress-service.service';
+import { ConfirmacaoService } from './services/confirmacao-service.service';
+import { MensagemService } from './services/mensagem-service.service';
+import { ProgressoService } from './services/progresso-service.service';
 
 @NgModule({
   imports: [
@@ -34,6 +36,7 @@ import { ProgressService } from './services/progress-service.service';
 
     // Primeng
     AutoCompleteModule,
+    CalendarModule,
     ChipsModule,
     ToastModule,
     MessageModule,
@@ -52,7 +55,8 @@ import { ProgressService } from './services/progress-service.service';
     RestricaoEntidadeComponent,
     RestricaoLabelComponent,
     RestricaoNumberComponent,
-    RestricaoStringComponent
+    RestricaoStringComponent,
+    RestricaoTemporalComponent
   ],
   exports: [
     // Maestro
@@ -60,10 +64,12 @@ import { ProgressService } from './services/progress-service.service';
     RestricaoLabelComponent,
     RestricaoNumberComponent,
     RestricaoStringComponent,
+    RestricaoTemporalComponent,
 
     // Primeng
     AutoCompleteModule,
     ChipsModule,
+    CalendarModule,
     ToastModule,
     MessageModule,
     MessagesModule,
@@ -77,11 +83,11 @@ import { ProgressService } from './services/progress-service.service';
     ButtonModule
   ],
   providers: [
+    ConfirmacaoService,
+    MensagemService,
+    ProgressoService,
     ConfirmationService,
-    MessageService,
-    ProgressService,
-    CsPrimeng,
-    MsPrimeng
+    MessageService
   ]
 })
 export class MaestroNgModule { }

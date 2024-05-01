@@ -2,6 +2,7 @@ export * from './lib/components/restricao/restricao-entidade/restricao-entidade.
 export * from './lib/components/restricao/restricao-label/restricao-label.component';
 export * from './lib/components/restricao/restricao-number/restricao-number.component';
 export * from './lib/components/restricao/restricao-string/restricao-string.component';
+export * from './lib/components/restricao/restricao-temporal/restricao-temporal.component';
 
 export * from './lib/models/consulta/consulta-paginada-resultado.model';
 export * from './lib/models/consulta/consulta-paginada.model';
@@ -16,9 +17,9 @@ export * from './lib/models/consulta/restricoes.model';
 export * from './lib/models/data-source/service-data-source.model';
 export * from './lib/models/data-source/base-data-source.model';
 
-export * from './lib/services/confirmation-service.service';
-export * from './lib/services/message-service.service';
-export * from './lib/services/progress-service.service';
+export * from './lib/services/confirmacao-service.service';
+export * from './lib/services/mensagem-service.service';
+export * from './lib/services/progresso-service.service';
 
 export * from './lib/utils/http-headers-utils.model';
 export * from './lib/utils/string-utils.model';

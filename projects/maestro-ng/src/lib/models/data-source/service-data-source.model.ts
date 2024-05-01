@@ -1,97 +1,89 @@
-import { Ordenacao } from './../consulta/ordenacao.model';
-import { ConsultaPaginada } from './../consulta/consulta-paginada.model';
-import { Restricao } from './../consulta/restricao.model';
-import { MessageService } from './../../services/message-service.service';
-import { ProgressService } from './../../services/progress-service.service';
-import { Restricoes } from './../consulta/restricoes.model';
 import { LazyLoadEvent, SortMeta } from 'primeng/api';
 import { ConsultaPaginadaResultado } from '../consulta/consulta-paginada-resultado.model';
-
-export interface ServiceDataSourceLoader<E,I> {
-  recuperarPaginado(consulta: ConsultaPaginada): Promise<ConsultaPaginadaResultado<E>>
-}
+import { MensagemService } from '../../services/mensagem-service.service';
+import { ProgressoService } from '../../services/progresso-service.service';
+import { ConsultaPaginada } from './../consulta/consulta-paginada.model';
+import { Ordenacao } from './../consulta/ordenacao.model';
+import { Restricao } from './../consulta/restricao.model';
+import { Restricoes } from './../consulta/restricoes.model';
 
 export class ServiceDataSource<E, I> {
 
   public entidades: E[];
-  public lastLoadEvent: LazyLoadEvent;
+  public ultimoCarregamentoEvento: LazyLoadEvent;
   public total: number;
   public restricoes: Restricoes;
 
   constructor(
-    private loader: ServiceDataSourceLoader<E, I>,
-    private messageService: MessageService,
-    private progressService: ProgressService,
-    public rows = 10) {
+    private carregador: (consulta: ConsultaPaginada) => Promise<ConsultaPaginadaResultado<E>>,
+    private mensagemService: MensagemService,
+    private progressoService: ProgressoService,
+    public registros = 10) {
   }
 
-  public onLazyLoad(event: LazyLoadEvent): void {
+  public carregar(evento: LazyLoadEvent): void {
 
-    let restrictionsList: Array<Restricao<any>>;
+    let restricoesLista: Array<Restricao<any>>;
 
     if (this.restricoes !== undefined) {
-      restrictionsList = this.restricoes.getAtivas();
+      restricoesLista = this.restricoes.getAtivas();
     }
 
-    const consulta = this.novaConsultaPaginada(event, restrictionsList);
+    const consulta = this.novaConsultaPaginada(evento, restricoesLista);
 
-    this.progressService.showModeless();
-    this.loader.recuperarPaginado(consulta)
+    this.progressoService.modeless();
+    this.carregador(consulta)
       .then(result => {
         this.entidades = result.entidades;
-        this.lastLoadEvent = event;
+        this.ultimoCarregamentoEvento = evento;
         this.total = result.total;
-        this.progressService.hide();
+        this.progressoService.fechar();
       })
       .catch(result => {
-        this.messageService.addError('Erro ao carregar os dados no servidor', result.error);
-        this.progressService.hide();
+        this.mensagemService.addErro('Erro ao pesquisar os dados', result.error);
+        this.progressoService.fechar();
       });
   }
 
-  public carregar(): void {
-    this.onLazyLoad({ first: 0, rows: this.rows });
-  }
-
   public atualizar(): void {
-    this.onLazyLoad(this.lastLoadEvent);
+    this.carregar(this.ultimoCarregamentoEvento);
   }
 
   public limpar(): void {
     this.restricoes.limpar();
-    this.onLazyLoad(this.lastLoadEvent);
+    this.carregar(this.ultimoCarregamentoEvento);
   }
 
-  public buscar(): void {
+  public pesquisar(): void {
 
     const event = {
       first: 0,
-      rows: this.rows,
+      rows: this.registros,
       sortField: undefined as string,
       sortOrder: undefined as number,
       multiSortMeta: undefined as SortMeta[]
     };
 
-    if (this.lastLoadEvent !== undefined) {
-      event.sortField = this.lastLoadEvent.sortField;
-      event.sortOrder = this.lastLoadEvent.sortOrder;
-      event.multiSortMeta = this.lastLoadEvent.multiSortMeta;
+    if (this.ultimoCarregamentoEvento !== undefined) {
+      event.sortField = this.ultimoCarregamentoEvento.sortField;
+      event.sortOrder = this.ultimoCarregamentoEvento.sortOrder;
+      event.multiSortMeta = this.ultimoCarregamentoEvento.multiSortMeta;
     }
 
-    this.onLazyLoad(event);
+    this.carregar(event);
   }
 
-  public onEnterBuscar(event: any): void {
+  public onEnterPesquisar(event: any): void {
     if (event.keyCode === 13) {
-      this.buscar();
+      this.pesquisar();
     }
   }
 
-  private novaConsultaPaginada(event: LazyLoadEvent, restricoes: Restricao<any>[]): ConsultaPaginada {
+  private novaConsultaPaginada(evento: LazyLoadEvent, restricoes: Restricao<any>[]): ConsultaPaginada {
 
     const consulta: ConsultaPaginada = {
-      inicio: event.first,
-      limite:  event.rows,
+      inicio: evento.first,
+      limite:  evento.rows,
       ordenacoes: [] as Ordenacao[],
       restricoes: [] as Restricao<any>[],
       contabilizar: true,
@@ -102,18 +94,18 @@ export class ServiceDataSource<E, I> {
       consulta.restricoes = restricoes;
     }
 
-    if (event.multiSortMeta) {
-      event.multiSortMeta.forEach(s => {
+    if (evento.multiSortMeta) {
+      evento.multiSortMeta.forEach(s => {
         consulta.ordenacoes.push({
           atributo: s.field,
           ordem: s.order === -1 ? 'DESC' : 'ASC'
         });
       });
     }
-    else if (event.sortField) {
+    else if (evento.sortField) {
       consulta.ordenacoes.push({
-        atributo: event.sortField,
-        ordem: event.sortOrder === -1 ? 'DESC' : 'ASC'
+        atributo: evento.sortField,
+        ordem: evento.sortOrder === -1 ? 'DESC' : 'ASC'
       });
     }
 
