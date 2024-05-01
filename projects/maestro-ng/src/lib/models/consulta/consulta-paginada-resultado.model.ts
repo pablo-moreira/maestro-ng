@@ -1,4 +1,4 @@
-export class ConsultaPaginadaResultado<E> {
-    public entidades: E[];
-    public total: number;
+export interface ConsultaPaginadaResultado<E> {
+  entidades: E[];
+  total: number;
 }

@@ -1,19 +1,12 @@
 export class Ordenacao {
 
-  atributo: string;
-  ordem: string;
+  constructor(public atributo: string, public ordem: string) {}
 
   static asc(atributo: string) {
-    return {
-      atributo,
-      ordem: 'ASC'
-    };
+    return new Ordenacao(atributo, 'ASC');
   }
 
   static desc(atributo: string) {
-    return {
-      atributo,
-      ordem: 'DESC'
-    };
+    return new Ordenacao(atributo, 'DESC');
   }
 }

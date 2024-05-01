@@ -1,19 +1,19 @@
-import { ConsultaPaginadaResultado } from '../consulta/consulta-paginada-resultado.model';
-import { ProgressoService } from '../../services/progresso-service.service';
+import { TableLazyLoadEvent } from 'primeng/table';
 import { MensagemService } from '../../services/mensagem-service.service';
-import { LazyLoadEvent } from 'primeng/api';
+import { ProgressoService } from '../../services/progresso-service.service';
+import { ConsultaPaginadaResultado } from '../consulta/consulta-paginada-resultado.model';
 
 export class BaseDataSource<E> {
 
-  public entidades: E[];
-  public ultimoCarregamentoEvento: LazyLoadEvent;
-  public total: number;
+  public entidades: E[] = [];
+  public ultimoCarregamentoEvento?: TableLazyLoadEvent;
+  public total: number = 0;
 
   constructor(
     protected mensagemService: MensagemService,
     protected progressoService: ProgressoService,
     public registros = 10,
-    protected carrregador: (event: LazyLoadEvent) => Promise<ConsultaPaginadaResultado<E>>) {
+    protected carrregador: (event?: TableLazyLoadEvent) => Promise<ConsultaPaginadaResultado<E>>) {
   }
 
   public pesquisar(): void {
@@ -30,7 +30,7 @@ export class BaseDataSource<E> {
     }
   }
 
-  public carregar(evento: LazyLoadEvent): void {
+  public carregar(evento?: TableLazyLoadEvent): void {
     this.progressoService.modeless();
     this.carrregador(evento)
       .then(result => {

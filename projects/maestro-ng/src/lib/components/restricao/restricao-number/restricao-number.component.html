@@ -1,7 +1,7 @@
 <m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
 
 <div *ngIf="isOperadorSingular()" class="p-col-12">
-  <input pInputText type="text" [(ngModel)]="restricao.valor" />
+  <p-inputNumber [(ngModel)]="restricao.valor"></p-inputNumber>
 </div>
 
 <div *ngIf="isOperadorMultiplo()" class="p-col-12">
@@ -10,9 +10,9 @@
 
 <div *ngIf="isOperadorBetween()" class="p-col-12">
   <div class="p-col-12 p-md-6">
-    <input pInputText type="text" [(ngModel)]="restricao.valorInicial" />
+    <p-inputNumber [(ngModel)]="restricao.valorInicial"></p-inputNumber>
   </div>
   <div class="p-col-12 p-md-6">
-    <input pInputText type="text" [(ngModel)]="restricao.valorFinal" />
+    <p-inputNumber [(ngModel)]="restricao.valorFinal"></p-inputNumber>
   </div>
 </div>

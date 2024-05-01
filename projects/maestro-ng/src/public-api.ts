@@ -14,14 +14,18 @@ export * from './lib/models/consulta/restricao.model';
 export * from './lib/models/consulta/restricoes.interface';
 export * from './lib/models/consulta/restricoes.model';
 
-export * from './lib/models/data-source/service-data-source.model';
 export * from './lib/models/data-source/base-data-source.model';
+export * from './lib/models/data-source/data-source-routed.model';
+export * from './lib/models/data-source/service-data-source.model';
 
 export * from './lib/services/confirmacao-service.service';
 export * from './lib/services/mensagem-service.service';
 export * from './lib/services/progresso-service.service';
 
+export * from './lib/utils/data-utils.model';
 export * from './lib/utils/http-headers-utils.model';
+export * from './lib/utils/locale-pt-br.model';
 export * from './lib/utils/string-utils.model';
+export * from './lib/utils/utils';
 
 export { MaestroNgModule } from './lib/maestro-ng.module';

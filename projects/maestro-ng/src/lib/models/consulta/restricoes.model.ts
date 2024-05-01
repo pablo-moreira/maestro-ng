@@ -25,7 +25,7 @@ export class Restricoes {
     return this.restricoes.filter(item => item.atributo === atributo)[0];
   }
 
-  public getAtivas(): Array<Restricao<any>> {
+  public getAtivas(): Restricao<any>[] {
 
     const result: Restricao<any>[] = [];
 

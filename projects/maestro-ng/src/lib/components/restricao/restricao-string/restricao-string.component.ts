@@ -10,8 +10,11 @@ import { RestricaoOperador } from './../../../models/consulta/restricao-operador
 })
 export class RestricaoStringComponent {
 
-  @Input() public label: string;
-  @Input() public restricao: Restricao<string>;
+  @Input({ required: true })
+  public label!: string;
+
+  @Input({ required: true })
+  public restricao!: Restricao<string>;
 
   public operadores: Operador[] = [];
 
@@ -32,10 +35,12 @@ export class RestricaoStringComponent {
   }
 
   public isOperadorMultiplo(): boolean {
-    return this.restricao.isOperadorInOrNotIn();
+    return this.restricao !== undefined && this.restricao.isOperadorInOrNotIn();
   }
 
   public isOperadorSingular(): boolean {
-    return !this.restricao.isOperadorInOrNotIn() && !this.restricao.isOperadorIsNullOrIsNotNull();
+    return this.restricao !== undefined
+      && !this.restricao.isOperadorInOrNotIn()
+      && !this.restricao.isOperadorIsNullOrIsNotNull();
   }
 }

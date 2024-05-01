@@ -10,8 +10,11 @@ import { Component, Input } from '@angular/core';
 })
 export class RestricaoNumberComponent {
 
-  @Input() public label: string;
-  @Input() public restricao: Restricao<number>;
+  @Input({ required: true })
+  public label!: string;
+
+  @Input({ required: true })
+  public restricao!: Restricao<number>;
 
   public operadores: Operador[] = [];
 
@@ -41,7 +44,7 @@ export class RestricaoNumberComponent {
 
   public isOperadorSingular(): boolean {
     return !this.restricao.isOperadorInOrNotIn()
-      && !this.restricao.isOperadorIsNullOrIsNotNull()
-      && !this.restricao.isOperadorBetweenOrNotBetween();
+        && !this.restricao.isOperadorIsNullOrIsNotNull()
+        && !this.restricao.isOperadorBetweenOrNotBetween();
   }
 }

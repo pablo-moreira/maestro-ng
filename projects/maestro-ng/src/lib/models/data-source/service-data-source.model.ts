@@ -1,35 +1,30 @@
-import { LazyLoadEvent, SortMeta } from 'primeng/api';
+import { TableLazyLoadEvent } from 'primeng/table';
 import { ConsultaPaginadaResultado } from '../consulta/consulta-paginada-resultado.model';
 import { MensagemService } from '../../services/mensagem-service.service';
 import { ProgressoService } from '../../services/progresso-service.service';
 import { ConsultaPaginada } from './../consulta/consulta-paginada.model';
-import { Ordenacao } from './../consulta/ordenacao.model';
 import { Restricao } from './../consulta/restricao.model';
 import { Restricoes } from './../consulta/restricoes.model';
+import { SortMeta } from 'primeng/api';
 
 export class ServiceDataSource<E, I> {
 
-  public entidades: E[];
-  public ultimoCarregamentoEvento: LazyLoadEvent;
-  public total: number;
-  public restricoes: Restricoes;
+  entidades: E[] = [];
+  protected ultimoCarregamentoEvento?: TableLazyLoadEvent;
+  total: number = 0;
+  ordenacoes: SortMeta[] = [];
 
   constructor(
     private carregador: (consulta: ConsultaPaginada) => Promise<ConsultaPaginadaResultado<E>>,
     private mensagemService: MensagemService,
     private progressoService: ProgressoService,
-    public registros = 10) {
+    public registros: number,
+    public restricoes: Restricoes) {
   }
 
-  public carregar(evento: LazyLoadEvent): void {
+  public carregar(evento?: TableLazyLoadEvent): void {
 
-    let restricoesLista: Array<Restricao<any>>;
-
-    if (this.restricoes !== undefined) {
-      restricoesLista = this.restricoes.getAtivas();
-    }
-
-    const consulta = this.novaConsultaPaginada(evento, restricoesLista);
+    const consulta = this.novaConsultaPaginada(this.restricoes.getAtivas(), evento);
 
     this.progressoService.modeless();
     this.carregador(consulta)
@@ -50,7 +45,9 @@ export class ServiceDataSource<E, I> {
   }
 
   public limpar(): void {
-    this.restricoes.limpar();
+    if (this.restricoes !== undefined) {
+      this.restricoes.limpar();
+    }
     this.carregar(this.ultimoCarregamentoEvento);
   }
 
@@ -59,10 +56,10 @@ export class ServiceDataSource<E, I> {
     const event = {
       first: 0,
       rows: this.registros,
-      sortField: undefined as string,
-      sortOrder: undefined as number,
-      multiSortMeta: undefined as SortMeta[]
-    };
+      sortField: undefined,
+      sortOrder: undefined,
+      multiSortMeta: undefined
+    } as TableLazyLoadEvent;
 
     if (this.ultimoCarregamentoEvento !== undefined) {
       event.sortField = this.ultimoCarregamentoEvento.sortField;
@@ -79,22 +76,25 @@ export class ServiceDataSource<E, I> {
     }
   }
 
-  private novaConsultaPaginada(evento: LazyLoadEvent, restricoes: Restricao<any>[]): ConsultaPaginada {
+  private novaConsultaPaginada(restricoes: Restricao<any>[], evento?: TableLazyLoadEvent): ConsultaPaginada {
+
+    const inicio = evento !== undefined ? evento.first || 0 : 0;
+    const fim = evento !== undefined ? evento.rows || this.registros : this.registros;
 
     const consulta: ConsultaPaginada = {
-      inicio: evento.first,
-      limite:  evento.rows,
-      ordenacoes: [] as Ordenacao[],
-      restricoes: [] as Restricao<any>[],
+      inicio: inicio,
+      limite: fim,
+      ordenacoes: [],
+      restricoes: [],
       contabilizar: true,
       distinguir: false
     };
 
-    if (restricoes && restricoes.length > 0) {
+    if (restricoes.length > 0) {
       consulta.restricoes = restricoes;
     }
 
-    if (evento.multiSortMeta) {
+    if (evento !== undefined && evento.multiSortMeta) {
       evento.multiSortMeta.forEach(s => {
         consulta.ordenacoes.push({
           atributo: s.field,
@@ -102,9 +102,9 @@ export class ServiceDataSource<E, I> {
         });
       });
     }
-    else if (evento.sortField) {
+    else if (evento !== undefined && evento.sortField) {
       consulta.ordenacoes.push({
-        atributo: evento.sortField,
+        atributo: evento.sortField as string,
         ordem: evento.sortOrder === -1 ? 'DESC' : 'ASC'
       });
     }

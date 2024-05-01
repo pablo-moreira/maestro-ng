@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Restricao } from './../../../models/consulta/restricao.model';
 import { RestricaoOperador } from './../../../models/consulta/restricao-operador.enum';
 import { Operador } from './../../../models/consulta/operador.interface';
@@ -10,13 +10,24 @@ import { Operador } from './../../../models/consulta/operador.interface';
 })
 export class RestricaoEntidadeComponent {
 
-  @Input() public label: string;
-  @Input() public itens: any[];
-  @Input() public itemId: string;
-  @Input() public itemLabel: string;
-  @Input() public restricao: Restricao<any>;
+  @Input({ required: true })
+  public label!: string;
+
+  @Input({ required: true })
+  public restricao!: Restricao<any>;
+
+  @Input({ required: true })
+  public itens: any[] = [];
+
+  @Input({ required: true })
+  public itemId!: string;
+
+  @Input({ required: true })
+  public itemLabel!: string;
 
   public operadores: Operador[] = [];
+
+  public name: string = '';
 
   constructor() {
     this.operadores.push({ id: RestricaoOperador.EQUALS, label: 'Igual' });
@@ -27,7 +38,11 @@ export class RestricaoEntidadeComponent {
     this.operadores.push({ id: RestricaoOperador.IS_NULL, label: 'Sem definição' });
   }
 
+  public ngOnChanges(_: SimpleChanges) {
+    this.name = this.restricao ? `restricao_${this.restricao.atributo.replace('.', '_')}_value` : '';
+  }
+
   public getName(): string {
-    return `restricao_${this.restricao.atributo.replace('.', '_')}_value`;
+    return this.name;
   }
 }

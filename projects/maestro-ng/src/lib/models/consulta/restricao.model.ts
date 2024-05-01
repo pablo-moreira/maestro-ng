@@ -15,13 +15,13 @@ export class Restricao<T> {
 
   public atributo: string;
   public operador: RestricaoOperador;
-  public valor: T;
-  public valores: T[];
-  public valorInicial: T;
-  public valorFinal: T;
-  public padrao: RestricaoPadrao;
+  public valor?: T;
+  public valores?: T[];
+  public valorInicial?: T;
+  public valorFinal?: T;
+  public padrao?: RestricaoPadrao;
 
-  constructor(params: IRestriction<any>) {
+  constructor(params: IRestriction<T>) {
       this.atributo = params.atributo;
       this.operador = params.operador;
       this.valor = params.valor;
@@ -43,10 +43,10 @@ export class Restricao<T> {
     let result;
 
     if (typeof value === 'string') {
-      result = value === undefined || String(value).trim() === '';
+      result = value === undefined || value === null || String(value).trim() === '';
     }
     else {
-      result = value === undefined;
+      result = value === undefined || value === null;
     }
 
     return result;
@@ -90,18 +90,18 @@ export class Restricao<T> {
 
   public onChangeOperador(): void {
     if (this.isOperadorInOrNotIn()) {
-      this.valorInicial = this.valorFinal = this.valor = null;
+      this.valorInicial = this.valorFinal = this.valor = undefined;
     }
     else if (this.isOperadorBetweenOrNotBetween()) {
-      this.valor = null;
+      this.valor = undefined;
       this.valores = [];
     }
     else if (this.isOperadorIsNullOrIsNotNull()) {
-      this.valorInicial = this.valorFinal = this.valor = null;
+      this.valorInicial = this.valorFinal = this.valor = undefined;
       this.valores = [];
     }
     else {
-      this.valorInicial = this.valorFinal = null;
+      this.valorInicial = this.valorFinal = undefined;
       this.valores = [];
     }
   }
