@@ -1,0 +1,16 @@
+<div>
+
+  <m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
+
+  <div *ngIf="restricao.isOperadorInOrNotIn()" class="ui-g-12">
+    <div *ngFor="let item of itens">
+      <p-checkbox [name]="getName()" [value]="item[itemId]" [(ngModel)]="restricao.valores" [label]="item[itemLabel]"></p-checkbox>
+    </div>
+  </div>
+
+  <div *ngIf="restricao.isOperadorEqualsOrNotEquals()" class="ui-g-12">
+    <div *ngFor="let item of itens">
+      <p-radioButton [name]="getName()" [value]="item[itemId]" [(ngModel)]="restricao.valor" [label]="item[itemLabel]"></p-radioButton>
+    </div>
+  </div>
+</div>
