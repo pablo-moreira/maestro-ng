@@ -2,12 +2,12 @@
 
 <div *ngIf="restricao.isOperadorInOrNotIn()" class="p-col-12">
   <div *ngFor="let item of itens">
-    <p-checkbox [name]="getName()" [value]="item[itemId]" [(ngModel)]="restricao.valores" [label]="item[itemLabel]"></p-checkbox>
+    <p-checkbox [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valores" [label]="item[itemLabel]"></p-checkbox>
   </div>
 </div>
 
 <div *ngIf="restricao.isOperadorEqualsOrNotEquals()" class="p-col-12">
   <div *ngFor="let item of itens">
-    <p-radioButton [name]="getName()" [value]="item[itemId]" [(ngModel)]="restricao.valor" [label]="item[itemLabel]"></p-radioButton>
+    <p-radioButton [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valor" [label]="item[itemLabel]"></p-radioButton>
   </div>
 </div>

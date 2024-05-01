@@ -11,9 +11,14 @@ import { RestricaoPadrao } from './../../../models/consulta/restricao-padrao.enu
 })
 export class RestricaoTemporalComponent {
 
-  @Input() public label: string;
-  @Input() public restricao: Restricao<Date>;
-  @Input() public mostrarSegundos: boolean = false;
+  @Input({ required: true })
+  public label!: string;
+
+  @Input({ required: true })
+  public restricao!: Restricao<Date>;
+
+  @Input()
+  public mostrarSegundos: boolean = false;
 
   public operadores: Operador[] = [];
 
@@ -35,23 +40,24 @@ export class RestricaoTemporalComponent {
   }
 
   public isSomenteData(): boolean {
-    return RestricaoPadrao.DATE === this.restricao.padrao || this.restricao.padrao === undefined;
+    return this.restricao !== undefined && (RestricaoPadrao.DATE === this.restricao.padrao || this.restricao.padrao === undefined);
   }
 
   public isSomenteHora(): boolean {
-    return RestricaoPadrao.TIME === this.restricao.padrao;
+    return this.restricao !== undefined && RestricaoPadrao.TIME === this.restricao.padrao;
   }
 
   public isDataHora(): boolean {
-    return RestricaoPadrao.TIMESTAMP === this.restricao.padrao;
+    return this.restricao !== undefined && RestricaoPadrao.TIMESTAMP === this.restricao.padrao;
   }
 
   public isOperadorBetween(): boolean {
-    return this.restricao.isOperadorBetweenOrNotBetween();
+    return this.restricao !== undefined && this.restricao.isOperadorBetweenOrNotBetween();
   }
 
   public isOperadorSingular(): boolean {
-    return !this.restricao.isOperadorIsNullOrIsNotNull()
+    return this.restricao !== undefined
+      && !this.restricao.isOperadorIsNullOrIsNotNull()
       && !this.restricao.isOperadorBetweenOrNotBetween();
   }
 }

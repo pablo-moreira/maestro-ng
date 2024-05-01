@@ -17,7 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { ToastModule } from 'primeng/toast/';
+import { ToastModule } from 'primeng/toast';
 // tslint:disable-next-line:max-line-length
 import { RestricaoEntidadeComponent } from './components/restricao/restricao-entidade/restricao-entidade.component';
 import { RestricaoLabelComponent } from './components/restricao/restricao-label/restricao-label.component';
@@ -26,6 +26,7 @@ import { RestricaoStringComponent } from './components/restricao/restricao-strin
 import { ConfirmacaoService } from './services/confirmacao-service.service';
 import { MensagemService } from './services/mensagem-service.service';
 import { ProgressoService } from './services/progresso-service.service';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { ProgressoService } from './services/progresso-service.service';
     CheckboxModule,
     DropdownModule,
     InputTextModule,
+    InputNumberModule,
     RadioButtonModule,
     DialogModule,
     ButtonModule

@@ -11,14 +11,22 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 })
 export class RestricaoLabelComponent {
 
-  @Input() public label: string;
-  @Input() public restricao: Restricao<any>;
-  @Input() public operadores: Operador[];
+  @Input({ required: true })
+  public label!: string;
+
+  @Input({ required: true })
+  public restricao!: Restricao<any>;
+
+  @Input({ required: true })
+  public operadores: Operador[] = [];
 
   constructor() {}
 
   public getOperadorLabel(): string {
-    return this.operadores.filter(op => this.restricao.operador === op.id)[0].label;
+
+    const operador = this.restricao.operador;
+
+    return this.operadores.filter(op => operador === op.id)[0].label;
   }
 
   public onChangeOperador(op: OverlayPanel): void {
