@@ -8,6 +8,7 @@ node_modules/
 dist/
 
 package-lock.json
+.angular/**
 
 # Compiled Java class files
 *.class

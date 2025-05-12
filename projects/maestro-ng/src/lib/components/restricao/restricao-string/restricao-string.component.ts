@@ -4,6 +4,7 @@ import { Operador } from './../../../models/consulta/operador.interface';
 import { RestricaoOperador } from './../../../models/consulta/restricao-operador.enum';
 
 @Component({
+  standalone: false,
   selector: 'm-restricao-string',
   templateUrl: './restricao-string.component.html',
   styleUrls: ['./restricao-string.component.css'],

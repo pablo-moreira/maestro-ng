@@ -4,6 +4,7 @@ import { RestricaoOperador } from './../../../models/consulta/restricao-operador
 import { Operador } from './../../../models/consulta/operador.interface';
 
 @Component({
+  standalone: false,
   selector: 'm-restricao-entidade',
   templateUrl: './restricao-entidade.component.html',
   styleUrls: ['./restricao-entidade.component.css'],

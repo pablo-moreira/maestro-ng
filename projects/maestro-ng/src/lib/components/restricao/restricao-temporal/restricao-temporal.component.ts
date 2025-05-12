@@ -5,6 +5,7 @@ import { RestricaoOperador } from './../../../models/consulta/restricao-operador
 import { RestricaoPadrao } from './../../../models/consulta/restricao-padrao.enum';
 
 @Component({
+  standalone: false,
   selector: 'm-restricao-temporal',
   templateUrl: './restricao-temporal.component.html',
   styleUrls: ['./restricao-temporal.component.css'],

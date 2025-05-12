@@ -1,10 +1,11 @@
 import { Restricao } from './../../../models/consulta/restricao.model';
 import { Operador } from './../../../models/consulta/operador.interface';
 import { Component, Input } from '@angular/core';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
 
 
 @Component({
+  standalone: false,
   selector: 'm-restricao-label',
   templateUrl: './restricao-label.component.html',
   styleUrls: ['./restricao-label.component.css']
@@ -29,7 +30,7 @@ export class RestricaoLabelComponent {
     return this.operadores.filter(op => operador === op.id)[0].label;
   }
 
-  public onChangeOperador(op: OverlayPanel): void {
+  public onChangeOperador(op: Popover): void {
     this.restricao.onChangeOperador();
     op.hide();
   }
