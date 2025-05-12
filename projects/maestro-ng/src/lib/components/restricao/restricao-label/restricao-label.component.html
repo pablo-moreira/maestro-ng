@@ -2,8 +2,9 @@
   {{label}}: (<span class="link" (click)="op.toggle($event)">{{getOperadorLabel()}}</span>)
 </div>
 
-<p-overlayPanel #op appendTo="body">
+<p-popover #op appendTo="body">
   <div *ngFor="let operador of operadores" style="padding: 2px 0">
-    <p-radioButton name="mlr_{{restricao.atributo}}_operador" [value]="operador.id" [(ngModel)]="restricao.operador" [label]="operador.label" (click)="onChangeOperador(op)"></p-radioButton>
+    <p-radioButton name="mlr_{{restricao.atributo}}_operador" [value]="operador.id" [(ngModel)]="restricao.operador" (click)="onChangeOperador(op)"></p-radioButton>
+    <label [for]="operador.id" class="ml-2"> {{ operador.label }} </label>
   </div>
-</p-overlayPanel>
+</p-popover>

@@ -4,6 +4,7 @@ import { Restricao } from './../../../models/consulta/restricao.model';
 import { Component, Input } from '@angular/core';
 
 @Component({
+  standalone: false,
   selector: 'm-restricao-number',
   templateUrl: './restricao-number.component.html',
   styleUrls: ['./restricao-number.component.css'],

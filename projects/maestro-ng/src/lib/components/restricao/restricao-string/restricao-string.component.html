@@ -1,7 +1,7 @@
 <m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
 
 <div *ngIf="isOperadorMultiplo()" class="p-col-12">
-  <p-chips [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chips>
+  <p-chip [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chip>
 </div>
 
 <div *ngIf="isOperadorSingular()" class="p-col-12">

@@ -6,15 +6,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePickerModule } from 'primeng/datepicker';
 import { CheckboxModule } from 'primeng/checkbox';
-import { ChipsModule } from 'primeng/chips';
+import { ChipModule } from 'primeng/chip';
 import { DialogModule } from 'primeng/dialog';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToastModule } from 'primeng/toast';
@@ -37,15 +37,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
     // Primeng
     AutoCompleteModule,
-    CalendarModule,
-    ChipsModule,
+    DatePickerModule,
+    ChipModule,
     ToastModule,
     MessageModule,
     MessagesModule,
-    OverlayPanelModule,
+    PopoverModule,
     ProgressBarModule,
     CheckboxModule,
-    DropdownModule,
+    SelectModule,
     InputTextModule,
     InputNumberModule,
     RadioButtonModule,
@@ -70,15 +70,15 @@ import { InputNumberModule } from 'primeng/inputnumber';
 
     // Primeng
     AutoCompleteModule,
-    ChipsModule,
-    CalendarModule,
+    ChipModule,
+    DatePickerModule,
     ToastModule,
     MessageModule,
     MessagesModule,
-    OverlayPanelModule,
+    PopoverModule,
     ProgressBarModule,
     CheckboxModule,
-    DropdownModule,
+    SelectModule,
     InputTextModule,
     RadioButtonModule,
     DialogModule,
