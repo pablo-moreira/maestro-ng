@@ -1,6 +1,6 @@
 # MaestroNg
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
 
 ## Development server
 
@@ -25,3 +25,20 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## New Version
+
+ - Change version in maestro-ng/package.json
+ - Update README.md
+ - Build and publish
+ 
+```terminal
+# Build
+ng build maestro-ng --configuration production
+
+# Publish
+cd dist/maestro-ng
+npm publish
+```
+
