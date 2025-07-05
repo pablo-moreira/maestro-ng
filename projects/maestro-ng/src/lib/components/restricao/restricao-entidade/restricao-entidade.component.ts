@@ -7,7 +7,7 @@ import { Operador } from './../../../models/consulta/operador.interface';
   standalone: false,
   selector: 'm-restricao-entidade',
   templateUrl: './restricao-entidade.component.html',
-  styleUrls: ['./restricao-entidade.component.css'],
+  styleUrls: ['./restricao-entidade.component.css']
 })
 export class RestricaoEntidadeComponent {
 

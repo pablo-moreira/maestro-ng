@@ -1,10 +1,8 @@
-<div class="p-col-12" style="padding-bottom: 1px">
-  {{label}}: (<span class="link" (click)="op.toggle($event)">{{getOperadorLabel()}}</span>)
-</div>
+<label>{{label}}: (<span class="link" (click)="op.toggle($event)">{{getOperadorLabel()}}</span>)</label>
 
 <p-popover #op appendTo="body">
-  <div *ngFor="let operador of operadores" style="padding: 2px 0">
-    <p-radioButton name="mlr_{{restricao.atributo}}_operador" [value]="operador.id" [(ngModel)]="restricao.operador" (click)="onChangeOperador(op)"></p-radioButton>
+  <div *ngFor="let operador of operadores" class="flex items-center gap-2">
+    <p-radioButton [inputId]="operador.id" name="mlr_{{restricao.atributo}}_operador" [value]="operador.id" [(ngModel)]="restricao.operador" (click)="onChangeOperador(op)"></p-radioButton>
     <label [for]="operador.id" class="ml-2"> {{ operador.label }} </label>
   </div>
 </p-popover>

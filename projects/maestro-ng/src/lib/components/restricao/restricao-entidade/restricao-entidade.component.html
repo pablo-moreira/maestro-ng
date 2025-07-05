@@ -1,15 +1,15 @@
 <m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
 
-<div *ngIf="restricao.isOperadorInOrNotIn()" class="p-col-12">
-  <div *ngFor="let item of itens">
-    <p-checkbox [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valores"></p-checkbox>
+<ng-container *ngIf="restricao.isOperadorInOrNotIn()">
+  <div *ngFor="let item of itens" class="flex items-center gap-2">
+    <p-checkbox [inputId]="item[itemId]" [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valores"></p-checkbox>
     <label [for]="item[itemId]" class="ml-2"> {{ item[itemLabel] }} </label>
   </div>
-</div>
+</ng-container>
 
-<div *ngIf="restricao.isOperadorEqualsOrNotEquals()" class="p-col-12">
-  <div *ngFor="let item of itens">
-    <p-radioButton [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valor"></p-radioButton>
+<ng-container *ngIf="restricao.isOperadorEqualsOrNotEquals()">
+  <div *ngFor="let item of itens" class="flex items-center gap-2">
+    <p-radioButton [inputId]="item[itemId]" [name]="name" [value]="item[itemId]" [(ngModel)]="restricao.valor"></p-radioButton>
     <label [for]="item[itemId]" class="ml-2"> {{ item[itemLabel] }} </label>
   </div>
-</div>
+</ng-container>

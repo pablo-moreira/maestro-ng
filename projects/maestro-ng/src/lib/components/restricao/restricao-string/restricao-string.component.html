@@ -1,9 +1,9 @@
-<m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
+<m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores" class="m-label"></m-restricao-label>
 
-<div *ngIf="isOperadorMultiplo()" class="p-col-12">
-  <p-chip [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chip>
-</div>
+<ng-container *ngIf="isOperadorMultiplo()" class="m-input">
+  <p-chip fluid [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chip>
+</ng-container>
 
-<div *ngIf="isOperadorSingular()" class="p-col-12">
-  <input pInputText type="text" [(ngModel)]="restricao.valor" />
-</div>
+<ng-container *ngIf="isOperadorSingular()" class="m-input">
+  <input fluid pInputText type="text" [(ngModel)]="restricao.valor" />
+</ng-container>

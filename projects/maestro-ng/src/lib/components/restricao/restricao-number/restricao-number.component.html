@@ -1,18 +1,20 @@
 <m-restricao-label [label]="label" [restricao]="restricao" [operadores]="operadores"></m-restricao-label>
 
-<div *ngIf="isOperadorSingular()" class="p-col-12">
-  <p-inputNumber [(ngModel)]="restricao.valor"></p-inputNumber>
-</div>
+<ng-container *ngIf="isOperadorSingular()">
+  <p-inputNumber fluid [(ngModel)]="restricao.valor"></p-inputNumber>
+</ng-container>
 
-<div *ngIf="isOperadorMultiplo()" class="p-col-12">
-  <p-chip [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chip>
-</div>
+<ng-container *ngIf="isOperadorMultiplo()">
+  <p-chip fluid [(ngModel)]="restricao.valores" allowDuplicate="false" addOnTab="true"></p-chip>
+</ng-container>
 
-<div *ngIf="isOperadorBetween()" class="p-col-12">
-  <div class="p-col-12 p-md-6">
-    <p-inputNumber [(ngModel)]="restricao.valorInicial"></p-inputNumber>
+<ng-container *ngIf="isOperadorBetween()">
+  <div class="grid grid-cols-12 gap-2">
+    <div class="col-span-12 lg:col-span-6">
+      <p-inputNumber fluid [(ngModel)]="restricao.valorInicial"></p-inputNumber>
+    </div>
+    <div class="col-span-12 lg:col-span-6">
+      <p-inputNumber fluid [(ngModel)]="restricao.valorFinal"></p-inputNumber>
+    </div>
   </div>
-  <div class="p-col-12 p-md-6">
-    <p-inputNumber [(ngModel)]="restricao.valorFinal"></p-inputNumber>
-  </div>
-</div>
+</ng-container>
